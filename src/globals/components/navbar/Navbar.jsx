@@ -1,6 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+
+  const items = useSelector((state)=>state.cart)
+  console.log(items)
 
   return (
     <div className="pb-3">
@@ -77,7 +81,7 @@ const Navbar = () => {
                     className="block md:px-4 transition hover:text-blue-700"
                   >
                     <span>
-                      Cart 
+                      Cart <sup>{items.length}</sup>
                     </span>
                   </a>
                 </ul>
