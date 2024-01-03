@@ -19,14 +19,17 @@ function App() {
     {/* <Navbar />
      <RouterProvider router = {router} />
      <Footer /> */}
-
+      
      <BrowserRouter>
+     <Navbar />
      <Routes>
-      <Route path = "./" element={<Home />} />
-      <Route path = "./login" element={<LoginUser />} />
-      <Route path = "./cart" element={<Cart />} />
+      <Route path = "/" element={<Home />} />
+      <Route path = "/login" element={<LoginUser />} />
+      <Route path = "/cart" element={<Cart />} />
      </Routes>
+     <Footer />
      </BrowserRouter>
+    
     </Provider>
 
     </>

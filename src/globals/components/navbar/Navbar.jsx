@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-
+  const navigate = useNavigate()
   const items = useSelector((state)=>state.cart)
   console.log(items)
 
@@ -16,6 +17,7 @@ const Navbar = () => {
                 href="#"
                 aria-label="logo"
                 className="flex space-x-2 items-center "
+                onClick={()=>navigate("/")}
               >
                 <span className="text-2xl font-bold dark:text-blue-900">
                   RENT<span className="text-red-600">CENTER</span>
@@ -77,7 +79,7 @@ const Navbar = () => {
                   </li>
                   <a
                     href="#"
-                  
+                    onClick={()=>navigate("/cart")}
                     className="block md:px-4 transition hover:text-blue-700"
                   >
                     <span>
