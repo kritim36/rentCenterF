@@ -13,8 +13,8 @@ const Footer = () => {
 
               <div className="flex flex-col mx-auto mt-6 space-y-3 md:space-y-0 md:flex-row">
                 <input
-                  id="email"
-                  type="text"
+                  id="emailAddress"
+                  type="email"
                   className="px-4 py-2 text-black bg-white border rounded-md dark:bg-white-900 dark:text-black-700 dark:border-gray-600 focus:border-gray-400 dark:focus:border-gray-300 focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-gray-300"
                   placeholder="Email Address"
                   style={{ "::placeholder": { color: "white" } }}

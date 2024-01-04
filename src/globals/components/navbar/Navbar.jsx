@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate()
   const items = useSelector((state)=>state.cart)
-  console.log(items)
+  
 
   return (
     <div className="pb-3">
@@ -48,6 +48,7 @@ const Navbar = () => {
                   <li>
                     <a
                       href="#"
+                      onClick={()=>navigate("/")}
                       className="block md:px-4 transition hover:text-blue-700 text-blue-800"
                     >
                       <span>Home</span>
@@ -95,7 +96,9 @@ const Navbar = () => {
                   title="Start buying"
                   className="w-full py-3 px-6 text-center rounded-full transition active:bg-blue-200 focus:bg-blue-100 sm:w-max"
                 >
-                  <a href="#" >
+                  <a href="#"
+                  onClick={()=>navigate("/register")}
+                   >
                     <span className="block text-gray-700 font-semibold text-sm">
                       Register
                     </span>
@@ -106,7 +109,9 @@ const Navbar = () => {
                   title="Start buying"
                   className="w-full py-3 px-6 text-center rounded-full transition bg-blue-300 hover:bg-blue-100 active:bg-blue-400 focus:bg-blue-300 sm:w-max"
                 >
-                  <a href="#" >
+                  <a href="#"
+                  onClick={()=>navigate("/login")}
+                   >
                   
                   <span className="block text-gray-800 font-semibold text-sm">
                     Login
