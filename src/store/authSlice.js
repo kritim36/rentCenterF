@@ -57,4 +57,17 @@ export function loginUser(data){
     }
 }
 
+export function forgetPasswordUser(data){
+    return async function forgetPasswordUserThunk(dispatch,getState){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await axios.post("http://localhost:3000/api/auth/login/forgetPassword",data)
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+        }
+    }
+}
+
 

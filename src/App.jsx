@@ -10,6 +10,9 @@ import Home from './pages/home/Home'
 import Cart from './pages/cart/Cart'
 import Login from './pages/auth/login/Login'
 import Register from './pages/auth/register/Register'
+import ForgetPassword from './pages/auth/forgetPassword/forgetPassword'
+import VerifyOtp from './pages/auth/verifyOtp/VerifyOtp'
+import ResestPassword from './pages/auth/resetPassword/ResetPassword'
 
 function App() {
   
@@ -25,8 +28,11 @@ function App() {
      <Navbar />
      <Routes>
       <Route path = "/" element={<Home />} />
-      <Route path = "/login" element={<Login />} />
       <Route path = "/register" element={<Register />} />
+      <Route path = "/login" element={<Login />} />
+      <Route path = "/forgetPassword" element={<ForgetPassword />} />
+      <Route path = "/verifyOtp" element={<VerifyOtp />} />
+      <Route path = "/resetPassword" element={<ResestPassword />} />
       <Route path = "/cart" element={<Cart />} />
      </Routes>
      <Footer />
