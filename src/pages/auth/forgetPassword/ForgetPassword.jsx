@@ -6,34 +6,34 @@ import { STATUSES } from '../../../globals/components/misc/statuses'
 
 
 const ForgetPassword = () => {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const {data,status} = useSelector((state)=>state.auth)
-    const [userData,setUserData] = useState({
-      email : ""
+    // const navigate = useNavigate()
+    // const dispatch = useDispatch()
+    // const {data,status} = useSelector((state)=>state.auth)
+    // const [userData,setUserData] = useState({
+    //   email : ""
       
-    })
+    // })
   
-    const handleChange = (e)=>{
-      const{name,value} = e.target 
-      setUserData({
-        ...userData,
-      [name] : value
-      })
-    }
+    // const handleChange = (e)=>{
+    //   const{name,value} = e.target 
+    //   setUserData({
+    //     ...userData,
+    //   [name] : value
+    //   })
+    // }
   
-    const handleSubmit = (e)=>{
-      e.preventDefault()
-      dispatch(forgetPasswordUser(userData))
+    // const handleSubmit = (e)=>{
+    //   e.preventDefault()
+    //   dispatch(forgetPasswordUser(userData))
      
-      if(status == STATUSES.SUCCESS){
-        return navigate("/verifyOtp")
-      }
-      if(status == STATUSES.ERROR){
-        alert("Something went wrong , Try again")
-        return;
-      }
-    }
+    //   if(status == STATUSES.SUCCESS){
+    //     return navigate("/verifyOtp")
+    //   }
+    //   if(status == STATUSES.ERROR){
+    //     alert("Something went wrong , Try again")
+    //     return;
+    //   }
+    // }
 
   
     

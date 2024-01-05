@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { STATUSES } from "../globals/components/misc/statuses";
+import API from "../http";
 
 
 
@@ -32,7 +32,7 @@ export function registerUser(data){
     return async function registerUserThunk(dispatch,getState){
         dispatch(setStatus(STATUSES.LOADING))
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/register",data)
+            const response = await API.post("/auth/register",data)
             dispatch(setUser(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
         } catch (error) {
@@ -46,7 +46,7 @@ export function loginUser(data){
     return async function loginUserThunk(dispatch,getState){
         dispatch(setStatus(STATUSES.LOADING))
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/login",data)
+            const response = await API.post("/auth/login",data)
             dispatch(setToken(response.data.data))
             dispatch(setUser(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
@@ -61,7 +61,7 @@ export function forgetPasswordUser(data){
     return async function forgetPasswordUserThunk(dispatch,getState){
         dispatch(setStatus(STATUSES.LOADING))
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/login/forgetPassword",data)
+            const response = await API.post("/auth/login/forgetPassword",data)
             console.log(response.data)
         } catch (error) {
             console.log(error)

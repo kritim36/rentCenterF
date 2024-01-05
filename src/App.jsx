@@ -13,6 +13,8 @@ import Register from './pages/auth/register/Register'
 import ForgetPassword from './pages/auth/forgetPassword/forgetPassword'
 import VerifyOtp from './pages/auth/verifyOtp/VerifyOtp'
 import ResestPassword from './pages/auth/resetPassword/ResetPassword'
+import Products from './pages/product/products/Products'
+import ProductDetail from './pages/product/productDetail/ProductDetail'
 
 function App() {
   
@@ -34,6 +36,8 @@ function App() {
       <Route path = "/verifyOtp" element={<VerifyOtp />} />
       <Route path = "/resetPassword" element={<ResestPassword />} />
       <Route path = "/cart" element={<Cart />} />
+      <Route path = "/product" element={<Products />} />
+      <Route path = "/productDetail/:id" element={<ProductDetail />} />
      </Routes>
      <Footer />
      </BrowserRouter>

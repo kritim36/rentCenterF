@@ -1,12 +1,13 @@
-import axios from 'axios'
 import React, { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { add } from '../../../store/cartSlice'
 import {  fetchProducts } from '../../../store/productSlice'
+import { useNavigate } from 'react-router-dom'
 
-const Product = () => {
+const Products = () => {
     // const[products,setProducts] = useState([])
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const {data : products,status} = useSelector((state)=>state.product)
     
@@ -31,7 +32,7 @@ const Product = () => {
      
     <div className="relative bg-white-50">
         <div className="container m-auto px-6 pt-32 md:px-12 lg:pt-[4.8rem] lg:px-7">
-        <h1 className="text-2xl font-bold text-yellow-900 md:text-3xl lg:w-10/12">Our Popular Foods</h1>
+        {/* <h1 className="text-2xl font-bold text-yellow-900 md:text-3xl lg:w-10/12">Our Popular Foods</h1> */}
 
       <div className="flex flex-wrap justify-between">
       
@@ -39,7 +40,7 @@ const Product = () => {
 {
   products.map((product)=>{
     return(
-      <div key={product._id} className="mx-auto mt-11 w-80 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg">
+      <div onClick={()=>navigate(`/productDetail/${product._id}`)} key={product._id} className="mx-auto mt-11 w-80 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg">
   <img className="h-48 w-full object-cover object-center" src={product.productImage} alt="Product Image" />
   <div className="p-4">
     <h2 className="mb-2 text-lg font-medium dark:text-white text-gray-900">{product.productName}</h2>
@@ -63,4 +64,4 @@ const Product = () => {
   )
 }
 
-export default Product
+export default Products

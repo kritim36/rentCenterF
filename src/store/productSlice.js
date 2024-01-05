@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { STATUSES } from "../globals/components/misc/statuses";
+import API from "../http";
 
 
 
@@ -8,7 +8,8 @@ const productSlice = createSlice({
     name : "product",
     initialState : {
         data : [],
-        status : STATUSES.SUCCESS
+        status : STATUSES.SUCCESS,
+        selectedProduct : {}
     },
     reducers : {
       setProducts(state,action){
@@ -16,6 +17,9 @@ const productSlice = createSlice({
       },
       setStatus(state,action){
         state.status = action.payload
+      },
+      setSelectedProduct(state,action){
+        state.selectedProduct = action.payload
       }
     },
     extraReducers : (builder)=>{
@@ -33,11 +37,11 @@ const productSlice = createSlice({
     }
 })
 
-export const{setProducts,setStatus} = productSlice.actions
+export const{setProducts,setStatus,setSelectedProduct} = productSlice.actions
 export default productSlice.reducer
 
 export const fetchProducts = createAsyncThunk('products/fetch',async()=>{
-    const response = await axios.get("http://localhost:3000/api/product")
+    const response = await API.get("/product")
     const data = response.data.data
     return data
 })
@@ -54,4 +58,18 @@ export const fetchProducts = createAsyncThunk('products/fetch',async()=>{
 //         }
 //     }
 // }
+
+export function fetchProductDetail(productId){
+    return async function fetchProductDetailThunk(dispatch,getState){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await API.get(`/product/${productId}`)
+            dispatch(setSelectedProduct(response.data.data))
+            dispatch(setStatus(STATUSES.SUCCESS))
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+        }
+    }
+}
 
