@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { STATUSES } from "../globals/components/misc/statuses";
-import API from "../http";
+import { API } from "../http";
+
 
 
 

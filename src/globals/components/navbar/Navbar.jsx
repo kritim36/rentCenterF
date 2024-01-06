@@ -1,11 +1,27 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logOut } from "../../../store/authSlice";
+import { fetchCartItems } from "../../../store/cartSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const items = useSelector((state)=>state.cart)
+  const {items} = useSelector((state)=>state.cart)
+  const {data : user} = useSelector((state)=>state.auth)
   
+  const handleLogout = ()=>{
+    //empty the data from auth store
+    dispatch(logOut())
+    
+    //localstorage remove/clear
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
+
+  useEffect(()=>{
+    dispatch(fetchCartItems())
+  },[dispatch])
 
   return (
     <div className="pb-3">
@@ -92,7 +108,11 @@ const Navbar = () => {
               </div>
 
               <div className="w-full space-y-2 border-gray-300 lg:space-y-0 md:w-max lg:border-l ">
-                <button
+               {
+                user.length == 0 && (localStorage.getItem('token') == '' || localStorage.getItem('token') == null || localStorage.getItem('token') == undefined) ?
+                (
+                  <>
+                   <button
                   type="button"
                   title="Start buying"
                   className="w-full py-3 px-6 text-center rounded-full transition active:bg-blue-200 focus:bg-blue-100 sm:w-max"
@@ -119,6 +139,26 @@ const Navbar = () => {
                   </span>
                   </a>
                 </button>
+                  </>
+                ):
+                <button
+                onClick={handleLogout}
+                type="button"
+                title="Start buying"
+                className="w-full py-3 px-6 text-center rounded-full transition bg-blue-300 hover:bg-blue-100 active:bg-blue-400 focus:bg-blue-300 sm:w-max"
+              >
+                <a href="#"
+      
+                 >
+                
+                <span className="block text-gray-800 font-semibold text-sm">
+                  LogOut
+                </span>
+                </a>
+                </button>
+               }
+               
+                
               </div>
             </div>
           </div>

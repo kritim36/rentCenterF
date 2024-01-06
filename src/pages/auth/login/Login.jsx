@@ -26,15 +26,12 @@ export default function Login() {
   const handleSubmit = (e)=>{
     e.preventDefault()
     dispatch(loginUser(userData))
-   
-    if(status == STATUSES.SUCCESS){
-      localStorage.setItem('token',token)
-      return navigate("/")
-    }
-    if(status == STATUSES.ERROR){
-      alert("Something went wrong , Try again")
-      return;
-    }
+      navigate("/")
+    
+    // if(status == STATUSES.ERROR){
+    //   alert("Something went wrong , Try again")
+    //   return;
+    // }
   }
 
   return (

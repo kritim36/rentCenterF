@@ -1,6 +1,5 @@
 import React, { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { add } from '../../../store/cartSlice'
 import {  fetchProducts } from '../../../store/productSlice'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,9 +14,9 @@ const Products = () => {
          dispatch(fetchProducts())
      },[])
 
-    const addToCart = (product)=>{
-      dispatch(add(product))
-    }
+    // const addToCart = (product)=>{
+    //   dispatch(add(product))
+    // }
 
     if(status == 'loading'){
       return <h1>Loading...</h1>
@@ -48,8 +47,8 @@ const Products = () => {
     <div className="flex items-center">
       <p className="mr-2 text-lg font-semibold text-gray-900 dark:text-white">Rs.{product.productPrice}</p>
       <p className="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p>
-      <button onClick={()=>addToCart(product)} className="px-6 py-2 transition ease-in duration-200 uppercase mb-2 text-lg font-medium dark:text-white rounded-full hover:bg-red-800 hover:text-white border-2 border-red-900 focus:outline-none">
-        Add to cart</button>
+      {/* <button onClick={()=>addToCart(product)} className="px-6 py-2 transition ease-in duration-200 uppercase mb-2 text-lg font-medium dark:text-white rounded-full hover:bg-red-800 hover:text-white border-2 border-red-900 focus:outline-none">
+        Add to cart</button> */}
     </div>
   </div>
 </div>
