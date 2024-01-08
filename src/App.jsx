@@ -16,6 +16,7 @@ import ResestPassword from './pages/auth/resetPassword/ResetPassword'
 import Products from './pages/product/products/Products'
 import ProductDetail from './pages/product/productDetail/ProductDetail'
 import Checkout from './pages/checkout/Checkout'
+import KhaltiSuccess from './pages/khaltisucess/KhaltiSuccess'
 
 function App() {
   
@@ -40,6 +41,7 @@ function App() {
       <Route path = "/product" element={<Products />} />
       <Route path = "/productDetail/:id" element={<ProductDetail />} />
       <Route path = "/checkout" element={<Checkout />} />
+      <Route path = "/success" element={<KhaltiSuccess />} />
      </Routes>
      <Footer />
      </BrowserRouter>

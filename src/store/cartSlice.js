@@ -25,11 +25,14 @@ const cartSlice = createSlice({
         deleteItems(state,action){
             const index = state.items.findIndex(item=>item.product._id === action.payload.productId)
             state.items.splice(index,1)
+        },
+        emptyCart(state,action){
+            state.items = []
         }
     }
 })
 
-export const{setItems,setStatus,updateItems,deleteItems} = cartSlice.actions
+export const{setItems,setStatus,updateItems,deleteItems,emptyCart} = cartSlice.actions
 export default cartSlice.reducer
 
 export function addToCart(productId){

@@ -26,7 +26,8 @@ export default function Login() {
   const handleSubmit = (e)=>{
     e.preventDefault()
     dispatch(loginUser(userData))
-      navigate("/")
+      // navigate("/")
+      window.location.href = '/'
     
     // if(status == STATUSES.ERROR){
     //   alert("Something went wrong , Try again")

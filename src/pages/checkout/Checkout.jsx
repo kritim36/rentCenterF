@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useDispatch, useSelector } from 'react-redux'
 import {useForm} from 'react-hook-form'
 import { createOrder } from '../../store/checkoutSlice'
 import { STATUSES } from '../../globals/components/misc/statuses'
+import { APIAuthenticated } from '../../http'
 
 const Checkout = () => {
     const dispatch = useDispatch()
@@ -27,10 +28,6 @@ const Checkout = () => {
       dispatch(createOrder(orderDetails))
     }
 
-    const handlePaymentChange = (e)=>{
-      setPaymentMethod(e.target.value)
-    }
-
     const proceedForKhaltiPayment = ()=>{
       const currentOrder = data[data.length -1]
       if(status === STATUSES.SUCCESS && paymentMethod === "COD" ){
@@ -47,6 +44,22 @@ const Checkout = () => {
      useEffect(()=>{
       proceedForKhaltiPayment()
      },[status,data])
+
+     const handlePaymentChange = (e)=>{
+      setPaymentMethod(e.target.value)
+    }
+
+     const handleKhalti = async (orderId,totalAmount)=>{
+      try {
+        const response = await APIAuthenticated.post('/payment',{orderId,amount:totalAmount})
+        if(response.status === 200){
+          window.location.href = response.data.paymentUrl
+        }
+  
+      } catch (error) {
+        console.log(error)
+      }
+     }
 
   return (
     <>
@@ -170,7 +183,12 @@ const Checkout = () => {
         <p className="text-2xl font-semibold text-gray-900">Rs {totalAmount}</p>
       </div>
     </div>
-    <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
+    {
+    paymentMethod === "COD" ? (
+      <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place Order</button>
+    ) :
+    (  <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" style={{backgroundColor:'purple'}}>Pay With Khalti</button>)
+  }
   </div>
   </form>
 </div>

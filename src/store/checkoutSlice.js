@@ -30,7 +30,7 @@ export function createOrder(data){
     return async function createOrderThunk(dispatch,getState){
         dispatch(setStatus(STATUSES.LOADING))
         try {
-            const response = await APIAuthenticated.post("/orders",data)
+            const response = await APIAuthenticated.post("/orders/",data)
             dispatch(setOrder(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
         } catch (error) {
