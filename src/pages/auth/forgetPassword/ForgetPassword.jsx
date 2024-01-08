@@ -34,7 +34,10 @@ const ForgetPassword = () => {
     //     return;
     //   }
     // }
-
+    const [email,setEmail] = useState({
+      email : ""
+    })
+  
   
     
   return (
@@ -72,9 +75,7 @@ const ForgetPassword = () => {
                     >
                       Send Otp
                     </button>
-                  </div>
-                  <hr className="mb-6 border-t" />
-                 
+                  </div>  
                 
                 </form>
               </div>

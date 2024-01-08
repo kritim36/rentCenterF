@@ -55,7 +55,10 @@ export function loginUser(data){
             dispatch(setToken(response.data.token))
             dispatch(setUser(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
-            localStorage.setItem('token',response.data.token)
+            if(response.status === 200 && response.data.token){
+                localStorage.setItem('token',response.data.token)
+            }
+            
         } catch (error) {
             console.log(error)
             dispatch(setStatus(STATUSES.ERROR))
@@ -63,11 +66,11 @@ export function loginUser(data){
     }
 }
 
-export function forgetPasswordUser(data){
+export function forgetPasswordUser(email){
     return async function forgetPasswordUserThunk(dispatch,getState){
         dispatch(setStatus(STATUSES.LOADING))
         try {
-            const response = await API.post("/auth/forgetPassword",data)
+            const response = await API.post("/auth/forgetPassword",email)
             console.log(response.data)
         } catch (error) {
             console.log(error)

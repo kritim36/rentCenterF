@@ -15,6 +15,7 @@ import VerifyOtp from './pages/auth/verifyOtp/VerifyOtp'
 import ResestPassword from './pages/auth/resetPassword/ResetPassword'
 import Products from './pages/product/products/Products'
 import ProductDetail from './pages/product/productDetail/ProductDetail'
+import Checkout from './pages/checkout/Checkout'
 
 function App() {
   
@@ -38,6 +39,7 @@ function App() {
       <Route path = "/cart" element={<Cart />} />
       <Route path = "/product" element={<Products />} />
       <Route path = "/productDetail/:id" element={<ProductDetail />} />
+      <Route path = "/checkout" element={<Checkout />} />
      </Routes>
      <Footer />
      </BrowserRouter>

@@ -22,13 +22,14 @@ const cartSlice = createSlice({
                 state.items[index].quantity = action.payload.quantity
             }
         },
-        // remove(state,action){
-        //     return state.filter((item)=>item._id !== action.payload)
-        // }
+        deleteItems(state,action){
+            const index = state.items.findIndex(item=>item.product._id === action.payload.productId)
+            state.items.splice(index,1)
+        }
     }
 })
 
-export const{setItems,setStatus,updateItems} = cartSlice.actions
+export const{setItems,setStatus,updateItems,deleteItems} = cartSlice.actions
 export default cartSlice.reducer
 
 export function addToCart(productId){
@@ -46,7 +47,7 @@ export function addToCart(productId){
 }
 
 export function fetchCartItems(){
-    return async function fetchCartItemsThunk(dispatch,getState){
+    return async function fetchCartItemsThunk(dispatch){
         dispatch(setStatus(STATUSES.LOADING))
         try {
             const response = await APIAuthenticated.get(`/cart/`)
@@ -65,6 +66,20 @@ export function updateCartItem(productId, quantity){
         try {
             const response = await APIAuthenticated.patch(`/cart/${productId}`,{quantity})
             dispatch(updateItems({productId, quantity}))
+            dispatch(setStatus(STATUSES.SUCCESS))
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+        }
+    }
+}
+
+export function deleteCartItems(productId){
+    return async function deleteItemThunk(dispatch,getState){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await APIAuthenticated.delete(`/cart/${productId}`)
+            dispatch(deleteItems({productId}))
             dispatch(setStatus(STATUSES.SUCCESS))
         } catch (error) {
             console.log(error)

@@ -4,11 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { logOut } from "../../../store/authSlice";
 import { fetchCartItems } from "../../../store/cartSlice";
 
+
 const Navbar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {items} = useSelector((state)=>state.cart)
   const {data : user} = useSelector((state)=>state.auth)
+  
+  useEffect(()=>{
+    dispatch(fetchCartItems())
+  },[dispatch])
   
   const handleLogout = ()=>{
     //empty the data from auth store
@@ -19,9 +24,7 @@ const Navbar = () => {
     navigate('/login')
   }
 
-  useEffect(()=>{
-    dispatch(fetchCartItems())
-  },[dispatch])
+ 
 
   return (
     <div className="pb-3">
