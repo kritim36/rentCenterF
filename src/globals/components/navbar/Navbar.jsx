@@ -11,10 +11,6 @@ const Navbar = () => {
   const {items} = useSelector((state)=>state.cart)
   const {data : user} = useSelector((state)=>state.auth)
   
-  useEffect(()=>{
-    dispatch(fetchCartItems())
-  },[dispatch])
-  
   const handleLogout = ()=>{
     //empty the data from auth store
     dispatch(logOut())
@@ -23,6 +19,10 @@ const Navbar = () => {
     localStorage.removeItem('token')
     navigate('/login')
   }
+
+  useEffect(()=>{
+    dispatch(fetchCartItems())
+  },[dispatch])
 
  
 
@@ -98,7 +98,10 @@ const Navbar = () => {
                       <span>Host Electronic</span>
                     </a>
                   </li>
-                  <a
+                 {
+                  items.length !== 0 && (
+                    <li>
+                       <a
                     href="#"
                     onClick={()=>navigate("/cart")}
                     className="block md:px-4 transition hover:text-blue-700"
@@ -107,6 +110,9 @@ const Navbar = () => {
                       Cart <sup>{items.length}</sup>
                     </span>
                   </a>
+                    </li>
+                  )
+                 }
                 </ul>
               </div>
 

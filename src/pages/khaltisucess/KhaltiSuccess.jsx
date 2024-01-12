@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { APIAuthenticated } from '../../http'
 import Loader from '../../globals/components/loader/Loader'
 import { emptyCart } from '../../store/cartSlice'
+import { APIAuthenticated } from '../../http'
 
 const KhaltiSuccess = () => {
     const queryParams = new URLSearchParams(location.search)

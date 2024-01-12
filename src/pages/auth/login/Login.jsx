@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../store/authSlice";
-import { STATUSES } from "../../../globals/components/misc/statuses";
 import { useNavigate } from "react-router-dom";
-
 
 
 export default function Login() {
@@ -26,8 +24,8 @@ export default function Login() {
   const handleSubmit = (e)=>{
     e.preventDefault()
     dispatch(loginUser(userData))
-      // navigate("/")
-      window.location.href = '/'
+      //navigate("/")
+      // window.location.href = '/'
     
     // if(status == STATUSES.ERROR){
     //   alert("Something went wrong , Try again")

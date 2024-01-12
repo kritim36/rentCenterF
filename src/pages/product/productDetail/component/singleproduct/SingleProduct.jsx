@@ -18,7 +18,7 @@ const SingleProduct = ({id:productId}) => {
     const {data : user} = useSelector((state)=>state.auth)
 
     const handleCart = ()=>{
-      if(user.length == 0 & (localStorage.getItem('token') == '' || localStorage.getItem('token') == null || localStorage.getItem('token') == undefined )){
+      if(user.length == 0 && (localStorage.getItem('token') == '' || localStorage.getItem('token') == null || localStorage.getItem('token') == undefined )){
         return navigate('/login')
       }
       dispatch(addToCart(productId))

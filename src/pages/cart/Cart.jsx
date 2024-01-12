@@ -14,7 +14,7 @@ const Cart = () => {
     const handleQuantityChange = (productId, newQuantity)=>{
       dispatch(updateCartItem(productId, newQuantity))
     }
-    const deleteCartItem = (productId)=>{
+    const handleDelete = (productId)=>{
       dispatch(deleteCartItems(productId))
     }
 
@@ -38,7 +38,7 @@ const Cart = () => {
                 <input className="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value={product.quantity} min="1" onChange={(e)=>handleQuantityChange(product.product._id,e.target.value)}/>
                 <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={()=>handleQuantityChange(product.product._id, product.quantity + 1)}> + </span>
               </div>
-              <div className="flex items-center space-x-4" onClick={()=>deleteCartItem(product.product._id)}>
+              <div className="flex items-center space-x-4" onClick={()=>handleDelete(product.product._id)}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>

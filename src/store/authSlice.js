@@ -57,6 +57,7 @@ export function loginUser(data){
             dispatch(setStatus(STATUSES.SUCCESS))
             if(response.status === 200 && response.data.token){
                 localStorage.setItem('token',response.data.token)
+                window.location.href = "/"
             }
             
         } catch (error) {

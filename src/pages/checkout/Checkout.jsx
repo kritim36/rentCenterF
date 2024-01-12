@@ -5,6 +5,7 @@ import { createOrder } from '../../store/checkoutSlice'
 import { STATUSES } from '../../globals/components/misc/statuses'
 import { APIAuthenticated } from '../../http'
 
+
 const Checkout = () => {
     const dispatch = useDispatch()
     const {items : products} = useSelector((state)=>state.cart)
@@ -33,7 +34,7 @@ const Checkout = () => {
       if(status === STATUSES.SUCCESS && paymentMethod === "COD" ){
           return alert("Order placed successfully")
        }  
-      if(status === STATUSES.SUCCESS && paymentMethod === "khalti" ){
+      if(status === STATUSES.SUCCESS && paymentMethod === "Khalti" ){
           const {totalAmount,_id:orderId} = data[data.length -1]
           
          handleKhalti(orderId,totalAmount)
@@ -52,8 +53,9 @@ const Checkout = () => {
      const handleKhalti = async (orderId,totalAmount)=>{
       try {
         const response = await APIAuthenticated.post('/payment',{orderId,amount:totalAmount})
+        console.log(response)
         if(response.status === 200){
-          window.location.href = response.data.paymentUrl
+           window.location.href = response.data.paymentUrl
         }
   
       } catch (error) {
@@ -108,7 +110,7 @@ const Checkout = () => {
         <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" htmlFor="radio_2">
           <img className="w-14 object-contain" src="/images/oG8xsl3xsOkwkMsrLGKM4.png" alt="" />
           <div className="ml-5">
-            <span className="mt-2 font-semibold">Online(Khalti)</span>
+            <span className="mt-2 font-semibold">Online(khalti)</span>
 
           </div>
         </label>
