@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logOut } from "../../../store/authSlice";
 import { fetchCartItems } from "../../../store/cartSlice";
 
@@ -113,6 +113,12 @@ const Navbar = () => {
                     </li>
                   )
                  }
+                  <li>
+                    <Link to = "/profile" className="block md:px-4 transition hover:text-blue-700">
+                    <span>Profile</span>
+                    </Link>
+        
+                  </li>
                 </ul>
               </div>
 

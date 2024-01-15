@@ -17,6 +17,8 @@ import Products from './pages/product/products/Products'
 import ProductDetail from './pages/product/productDetail/ProductDetail'
 import Checkout from './pages/checkout/Checkout'
 import KhaltiSuccess from './pages/khaltisucess/KhaltiSuccess'
+import UserProfile from './pages/profile/UserProfile'
+import MyOrders from './pages/myorders/MyOrders'
 
 function App() {
   
@@ -42,6 +44,8 @@ function App() {
       <Route path = "/productDetail/:id" element={<ProductDetail />} />
       <Route path = "/checkout" element={<Checkout />} />
       <Route path = "/success" element={<KhaltiSuccess />} />
+      <Route path = "/profile" element={<UserProfile />} />
+      <Route path = "/myorders" element={<MyOrders />} />
      </Routes>
      <Footer />
      </BrowserRouter>
