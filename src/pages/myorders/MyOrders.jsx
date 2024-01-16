@@ -1,44 +1,49 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import { fetchOrder } from '../../store/checkoutSlice'
+import {useNavigate} from 'react-router-dom'
 
 const MyOrders = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const {orders} = useSelector((state)=>state.checkout)
+    const [selectedItem,setSelectedItem] = useState('all')
+    const [searchTerm,setSearchTerm] = useState('')
+    const [date,setDate] = useState('')
     console.log(orders)
     useEffect(()=>{
-      dispatch(fetchOrder())
+        dispatch(fetchOrder())
     },[])
+
+    // const filteredOrders = selectedItem === "all" ? orders : orders.filter((order)=>order.orderStatus === selectedItem)
+    const filteredOrders = orders?.filter((order)=>selectedItem === 'all' || order.orderStatus === selectedItem )
+    .filter((order)=>
+        order._id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.paymentDetails.method.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        order.paymentDetails.status.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((order)=>date === "" || new Date(order.createdAt).toLocaleDateString() === new Date(date).toLocaleDateString() )
   return (
-   
-<div className="antialiased font-sans bg-gray-200 pt-20" >
+  
+<div className="antialiased font-sans bg-gray-200 pt-20">
     <div className="container mx-auto px-4 sm:px-8">
         <div className="py-8">
             <div>
-                <h2 className="text-2xl font-semibold leading-tight">Users</h2>
+                <h2 className="text-2xl font-semibold leading-tight">Orders</h2>
             </div>
             <div className="my-2 flex sm:flex-row flex-col">
                 <div className="flex flex-row mb-1 sm:mb-0">
+           
                     <div className="relative">
                         <select
-                            className="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option>5</option>
-                            <option>10</option>
-                            <option>20</option>
-                        </select>
-                        <div
-                            className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div className="relative">
-                        <select
+                        onChange={(e)=>setSelectedItem(e.target.value)}
                             className="appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
-                            <option>All</option>
-                            <option>Active</option>
-                            <option>Inactive</option>
+                            <option value='all'>all</option>
+                            <option value='pending'>pending</option>
+                            <option value='delivered'>delivered</option>
+                            <option value='ontheway'>ontheway</option>
+                            <option value='cancelled'>cancelled</option>
+                            
                         </select>
                         <div
                             className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -57,6 +62,16 @@ const MyOrders = () => {
                         </svg>
                     </span>
                     <input placeholder="Search"
+                    value={searchTerm}
+                    onChange={(e)=>setSearchTerm(e.target.value)}
+                        className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+                </div>
+                <div className="block relative">
+                
+                    <input placeholder="Search"
+                    type='date'
+                    value={date}
+                    onChange={(e)=>setDate(e.target.value)}
                         className="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
                 </div>
             </div>
@@ -69,10 +84,10 @@ const MyOrders = () => {
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     OrderId
                                 </th>
-                               
+                     
                                 <th
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Total Amount 
+                                    Total Amt
                                 </th>
                                 <th
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -80,18 +95,18 @@ const MyOrders = () => {
                                 </th>
                                 <th
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Order Status
+                                   Order Status
                                 </th>
                                 <th
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Order At
+                                    Ordered At
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                           {
-                            orders && orders.length > 0 && orders.map((order)=>{
-                                return(
+                        {
+                           filteredOrders && filteredOrders.length > 0 && filteredOrders.map((order)=>{
+                                return (
                                     <tr>
                                     {/* <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <div className="flex items-center">
@@ -102,24 +117,23 @@ const MyOrders = () => {
                                             </div>
                                             <div className="ml-3">
                                                 <p className="text-gray-900 whitespace-no-wrap">
-                                                    {product.productName}
+                                                    {order.orderName}
                                                 </p>
                                             </div>
                                         </div>
                                     </td> */}
+                                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <p onClick={()=>navigate(`/myorders/${order._id}`)} className="text-blue-900 whitespace-no-wrap cursor-pointer" style={{textDecoration:'underline'}} >{order._id}</p>
+                                    </td>
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-900 whitespace-no-wrap">{order._id}</p>
+                                        <p className="text-gray-900 whitespace-no-wrap">{order.totalAmount}</p>
                                     </td>
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <p className="text-gray-900 whitespace-no-wrap">
-                                            {order.totalAmount}
+                                           {order.paymentDetails.status}({order.paymentDetails.method}) 
                                         </p>
                                     </td>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-900 whitespace-no-wrap">
-                                        {order.paymentDetails.status}({order.paymentDetails.method}) 
-                                        </p>
-                                    </td>
+                               
                                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <span
                                             className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
@@ -128,11 +142,14 @@ const MyOrders = () => {
                                             <span className="relative">{order.orderStatus}</span>
                                         </span>
                                     </td>
+                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <p className="text-gray-900 whitespace-no-wrap">{new Date(order.createdAt).toLocaleDateString()}</p>
+                                    </td>
                                 </tr>
                                 )
                             })
-                           }
-                          
+                        }
+                
                         </tbody>
                     </table>
                     <div
