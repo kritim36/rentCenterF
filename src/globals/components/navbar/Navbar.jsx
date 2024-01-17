@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logOut } from "../../../store/authSlice";
+import { fetchProfile, logOut } from "../../../store/authSlice";
 import { fetchCartItems } from "../../../store/cartSlice";
 
 
@@ -22,6 +22,7 @@ const Navbar = () => {
 
   useEffect(()=>{
     dispatch(fetchCartItems())
+    dispatch(fetchProfile())
   },[dispatch])
 
  

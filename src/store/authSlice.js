@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUSES } from "../globals/components/misc/statuses";
-import { API } from "../http";
+import { API, APIAuthenticated } from "../http";
 
 
 
@@ -73,6 +73,21 @@ export function forgetPasswordUser(email){
         try {
             const response = await API.post("/auth/forgetPassword",email)
             console.log(response.data)
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+        }
+    }
+}
+
+export function fetchProfile(){
+    return async function fetchProfileThunk(dispatch){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await APIAuthenticated.get("profile/")
+            dispatch(setUser(response.data.data))
+         
+            dispatch(setStatus(STATUSES.SUCCESS))
         } catch (error) {
             console.log(error)
             dispatch(setStatus(STATUSES.ERROR))
