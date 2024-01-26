@@ -86,19 +86,20 @@ const Navbar = () => {
                   <li>
                     <a
                       href="#" 
+                      onClick={()=>navigate('/hostproduct')}
                       className="block md:px-4 transition hover:text-blue-700"
                     >
-                      <span>Host Vechicle</span>
+                      <span>Host Your Products</span>
                     </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a
                       href="#"
                       className="block md:px-4 transition hover:text-blue-700"
                     >
                       <span>Host Electronic</span>
                     </a>
-                  </li>
+                  </li> */}
                  {
                   items.length !== 0 && (
                     <li>

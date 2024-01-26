@@ -20,6 +20,7 @@ import KhaltiSuccess from './pages/khaltisucess/KhaltiSuccess'
 import UserProfile from './pages/profile/UserProfile'
 import MyOrders from './pages/myorders/MyOrders'
 import OrderDetail from './pages/orderDetail/OrderDetail'
+import HostProduct from './pages/hostproduct/HostProduct'
 
 function App() {
   
@@ -48,6 +49,7 @@ function App() {
       <Route path = "/profile" element={<UserProfile />} />
       <Route path = "/myorders" element={<MyOrders />} />
       <Route path = "/myorders/:id" element = {<OrderDetail />} />
+      <Route path = "/hostproduct" element = {<HostProduct />}  />
      </Routes>
      <Footer />
      </BrowserRouter>
