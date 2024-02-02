@@ -10,7 +10,11 @@ const authSlice = createSlice({
     initialState : {
         data : [],
         status : STATUSES.SUCCESS,
-        token : ""
+        token : "",
+        forgotPasswordData : {
+            email : null, 
+            status : STATUSES.LOADING
+           }
     },
     reducers : {
       setUser(state,action){
@@ -26,11 +30,17 @@ const authSlice = createSlice({
         state.date = [],
         state.token = null,
         state.status = STATUSES.SUCCESS
-      }
+      },
+      setEmail(state,action){
+        state.forgotPasswordData.email = action.payload
+       },
+       setForgotPasswordDataStatus(state,action){
+        state.forgotPasswordData.status = action.payload
+       }
     },
 })
 
-export const{setUser,setStatus,setToken,logOut} = authSlice.actions
+export const{setUser,setStatus,setToken,logOut,setEmail,setForgotPasswordDataStatus} = authSlice.actions
 export default authSlice.reducer
 
 
@@ -67,18 +77,7 @@ export function loginUser(data){
     }
 }
 
-export function forgetPasswordUser(email){
-    return async function forgetPasswordUserThunk(dispatch,getState){
-        dispatch(setStatus(STATUSES.LOADING))
-        try {
-            const response = await API.post("/auth/forgetPassword",email)
-            console.log(response.data)
-        } catch (error) {
-            console.log(error)
-            dispatch(setStatus(STATUSES.ERROR))
-        }
-    }
-}
+
 
 export function fetchProfile(){
     return async function fetchProfileThunk(dispatch){
@@ -88,6 +87,36 @@ export function fetchProfile(){
             dispatch(setUser(response.data.data))
          
             dispatch(setStatus(STATUSES.SUCCESS))
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+        }
+    }
+}
+
+export function forgotPassword(data){
+    return async function forgotPasswordThunk(dispatch){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await APIAuthenticated.post("/auth/forgetPassword",data)
+            dispatch(setEmail(response.data.data))
+         
+            dispatch(setStatus(STATUSES.SUCCESS))
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+        }
+    }
+}
+
+export function verifyotp(data){
+    return async function verifyotpThunk(dispatch){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await APIAuthenticated.post("auth/verifyOtp/",data)
+            // dispatch(setUser(response.data.data))
+            dispatch(setEmail(data.email))
+            dispatch(setForgotPasswordDataStatus(STATUSES.SUCCESS))
         } catch (error) {
             console.log(error)
             dispatch(setStatus(STATUSES.ERROR))

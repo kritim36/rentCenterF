@@ -115,12 +115,15 @@ const Navbar = () => {
                     </li>
                   )
                  }
+                 {
+                  user.length>0 || localStorage.getItem("token") && 
                   <li>
                     <Link to = "/profile" className="block md:px-4 transition hover:text-blue-700">
                     <span>Profile</span>
                     </Link>
         
                   </li>
+                  }
                 </ul>
               </div>
 
