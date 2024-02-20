@@ -6,6 +6,6 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [import('@tailwindcss/aspect-ratio'), import('@tailwindcss/forms'),],
+  plugins: [import('@tailwindcss/aspect-ratio'), import('@tailwindcss/forms'),import('@tailwindcss/forms'),],
 }
 

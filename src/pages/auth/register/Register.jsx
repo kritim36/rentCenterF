@@ -120,24 +120,6 @@ const Register = () => {
                       required
                     />
                   </div>
-                
-
-                {/* Display validation errors */}
-                {/* {errors.firstName && (
-                  <p className="text-red-500 text-sm">{errors.firstName}</p>
-                )}
-                {errors.lastName && (
-                  <p className="text-red-500 text-sm">{errors.lastName}</p>
-                )}
-                {errors.email && (
-                  <p className="text-red-500 text-sm">{errors.email}</p>
-                )}
-                {errors.password && (
-                  <p className="text-red-500 text-sm">{errors.password}</p>
-                )}
-                {errors.c_password && (
-                  <p className="text-red-500 text-sm">{errors.c_password}</p>
-                )} */}
 
                 <div className="mb-6 text-center">
                   <button

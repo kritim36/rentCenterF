@@ -51,7 +51,7 @@ export function registerUser(data){
             const response = await API.post("/auth/register",data)
             dispatch(setStatus(STATUSES.SUCCESS))
         } catch (error) {
-            console.log(error)
+            alert("Something went wrong")
             dispatch(setStatus(STATUSES.ERROR))
         }
     }
@@ -71,7 +71,7 @@ export function loginUser(data){
             }
             
         } catch (error) {
-            console.log(error)
+            alert("Something went wrong")
             dispatch(setStatus(STATUSES.ERROR))
         }
     }
@@ -95,17 +95,19 @@ export function fetchProfile(){
 }
 
 export function forgotPassword(data){
+    console.log(data)
     return async function forgotPasswordThunk(dispatch){
         dispatch(setStatus(STATUSES.LOADING))
-        try {
+      
             const response = await APIAuthenticated.post("/auth/forgetPassword",data)
             dispatch(setEmail(response.data.data))
          
             dispatch(setStatus(STATUSES.SUCCESS))
-        } catch (error) {
-            console.log(error)
-            dispatch(setStatus(STATUSES.ERROR))
-        }
+        
+            // alert("Something went wrong")
+            // console.log(error)
+            // dispatch(setStatus(STATUSES.ERROR))
+       
     }
 }
 
@@ -118,7 +120,7 @@ export function verifyotp(data){
             dispatch(setEmail(data.email))
             dispatch(setForgotPasswordDataStatus(STATUSES.SUCCESS))
         } catch (error) {
-            console.log(error)
+            alert("Something went wrong")
             dispatch(setStatus(STATUSES.ERROR))
         }
     }

@@ -15,6 +15,10 @@ const ForgetPassword = () => {
     dispatch(forgotPassword({email}))
 
   }
+  // const sendOtp = (e)=>{
+    
+  //   forgotPassword(email)
+  // }
   useEffect(()=>{
     if(status === STATUSES.SUCCESS){
         navigate("/verifyotp")
@@ -51,7 +55,7 @@ const ForgetPassword = () => {
                   <div className="mb-6 text-center">
                     <button
                       className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                      
+                     
                     >
                       Send Otp
                     </button>

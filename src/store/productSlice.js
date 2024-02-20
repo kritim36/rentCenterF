@@ -65,6 +65,7 @@ export function fetchProductDetail(productId){
         dispatch(setStatus(STATUSES.LOADING))
         try {
             const response = await API.get(`/product/${productId}`)
+            console.log(response)
             dispatch(setSelectedProduct(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
         } catch (error) {

@@ -43,6 +43,7 @@ function App() {
       <Route path = "/resetPassword" element={<ResestPassword />} />
       <Route path = "/cart" element={<Cart />} />
       <Route path = "/product" element={<Products />} />
+      
       <Route path = "/productDetail/:id" element={<ProductDetail />} />
       <Route path = "/checkout" element={<Checkout />} />
       <Route path = "/success" element={<KhaltiSuccess />} />
