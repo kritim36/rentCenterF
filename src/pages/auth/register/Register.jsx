@@ -31,7 +31,7 @@ const Register = () => {
         return navigate("/login")
     }
     if(status == STATUSES.ERROR){
-        alert("Something went wrong, Try Again")
+        console.log("error")
         return
     }
   }
