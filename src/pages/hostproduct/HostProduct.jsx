@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
+import { combinedSchema } from "../schemas";
 
 const initialValues = {
   firstName: "",
@@ -30,6 +31,9 @@ const Hostvechicle = () => {
   const [selectedVechicle, setSelectedVechicle] = useState(null);
   const [selectedElectronics, setSelectedElectronics] = useState(null);
 
+  const selectedOption = selectedVechicle || selectedElectronics;
+
+
   const {
     values,
     errors,
@@ -40,8 +44,8 @@ const Hostvechicle = () => {
     setFieldValue,
   } = useFormik({
     initialValues: initialValues,
-    // validationSchema: vechicleSchema,
-    // validationSchema: electronicSchema,
+    validationSchema: combinedSchema(selectedOption),
+    
     vimage: [],
     bimage: [],
     inimage: [],
@@ -71,19 +75,19 @@ const Hostvechicle = () => {
             <form action="" method="POST" onSubmit={handleSubmit}>
               <div class="-mx-3 flex flex-wrap">
                 {/* firstname */}
-                <div class="w-full px-3 sm:w-1/2">
+                <div class="w-full px-3 ">
                   <div class="mb-5">
                     <label
                       for="fName"
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
-                      First Name
+                      Enter your name
                     </label>
                     <input
                       type="text"
                       name="firstName"
                       id="firstName"
-                      placeholder="First Name"
+                      placeholder="Enter your full name"
                       value={values.firstName}
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -418,7 +422,7 @@ const Hostvechicle = () => {
                       className="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Vehicle Image{" "}
-                      <span className="text-gray-600">(in pdf format)</span>
+                      <span className="text-gray-600"></span>
                     </label>
                     <input
                       type="file"
@@ -441,7 +445,7 @@ const Hostvechicle = () => {
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Bluebook Image{" "}
-                      <span className="text-gray-600">(in pdf format)</span>
+                      <span className="text-gray-600"></span>
                     </label>
                     <input
                       type="file"
@@ -476,7 +480,7 @@ const Hostvechicle = () => {
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Insurance Image{" "}
-                      <span className="text-gray-600">(in pdf format)</span>
+                      <span className="text-gray-600"></span>
                     </label>
                     <input
                       type="file"
