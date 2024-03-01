@@ -9,7 +9,7 @@ const ProductDetail = () => {
   return (
     <div>
        <SingleProduct id = {id} />
-       <Review /> 
+       {/* <Review />  */}
     </div>
   )
 }
