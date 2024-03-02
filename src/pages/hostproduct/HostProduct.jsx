@@ -3,28 +3,21 @@ import { useFormik } from "formik";
 import { combinedSchema } from "../schemas";
 
 const initialValues = {
-  firstName: "",
-  lastName: "",
-  registrationNumber: "",
-  manufacturer: "",
-  modelNumber: "",
-  emanufacturer: "",
-  color: "",
+  productName: "",
+  //productRegistrationNumber: "",
+  productBrand: "",
+  productCategory: "",
+  //productModelNumber: "",
   city: "",
-  seat: "",
-  fuel: "",
-  place: "",
-  price: "",
-  instruction: "",
-  guideline: "",
-  date: "",
-  time: "",
-  vimage: "",
-  gadgetimage: "",
-  billimage: "",
-  bimage: "",
-  inimage: "",
-  insurancedate: "",
+  //productFuelType: "",
+  productLocation: "",
+  productPrice: "",
+  productDescription: "",
+  productGuideline: "", 
+  availableDate: "",
+  productImage: "",
+  //productBluebookImage: "",
+  //productInsuranceImage: ""
 };
 
 const Hostvechicle = () => {
@@ -46,17 +39,38 @@ const Hostvechicle = () => {
     initialValues: initialValues,
     validationSchema: combinedSchema(selectedOption),
     
-    vimage: [],
-    bimage: [],
-    inimage: [],
-    gadgetimage: [],
-    billimage: [],
-    onSubmit: (values, action) => {
+     productImage: [],
+     productBluebookImage: [],
+    productInsuranceImage: [],
+    onSubmit: async(values, action) => {
+      try{
+        const token = localStorage.getItem("token")
+        const response = await fetch('http://localhost:3000/api/renter/host', {
+          method: 'POST',
+          headers: {
+            'Content-Type' : 'application/json',
+            Accept : 'application/json',
+            // 'Content-Type': 'multipart/form-data',
+            'Authorization' : `${token}`
+          },
+          body: JSON.stringify(values)
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to submit form data');
+        }
+  
+        console.log('Form data submitted successfully');
+        action.resetForm();
+        console.log(response)
+      } catch (error) {
+        console.error('Error submitting form data:', error.message);
+     }
       console.log("🚀 ~ Hostvechicle ~ values:", values);
       action.resetForm();
     },
-  });
-  console.log("🚀 ~ Hostvechicle ~ errors:", errors);
+  })
+ console.log("🚀 ~ Hostvechicle ~ errors:", errors);
 
   const handleFileChange = (event, fieldName) => {
     const files = event.currentTarget.files;
@@ -78,57 +92,32 @@ const Hostvechicle = () => {
                 <div class="w-full px-3 ">
                   <div class="mb-5">
                     <label
-                      for="fName"
+                      for="productName"
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
-                      Enter your name
+                      Product Name
                     </label>
                     <input
                       type="text"
-                      name="firstName"
-                      id="firstName"
+                      name="productName"
+                      id="productName"
                       placeholder="Enter your full name"
-                      value={values.firstName}
+                      value={values.productName}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />{" "}
-                    {errors.firstName && touched.firstName ? (
-                      <p className="text-red-700 p-3">{errors.firstName}</p>
+                    {errors.productName && touched.productName ? (
+                      <p className="text-red-700 p-3">{errors.productName}</p>
                     ) : null}
                   </div>
                 </div>
-
-                {/* lastname */}
-                {/* <div class="w-full px-3 sm:w-1/2">
-                  <div class="mb-5">
-                    <label
-                      for="lName"
-                      class="mb-3 block text-base font-medium text-[#07074D]"
-                    >
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      id="lastName"
-                      placeholder="Last Name"
-                      value={values.lastName}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />{" "}
-                    {errors.lastName && touched.lastName ? (
-                      <p className="text-red-700 p-3">{errors.lastName}</p>
-                    ) : null}
-                  </div>
-                </div> */}
               </div>
 
               {/* city */}
               <div class="mb-5">
                 <label
-                  for="registrationNumber"
+                  for="city"
                   class="mb-3 block text-base font-medium text-[#07074D]"
                 >
                   City
@@ -151,117 +140,94 @@ const Hostvechicle = () => {
               {/* place */}
               <div class="mb-5">
                 <label
-                  for="registrationNumber"
+                  for="productLocation"
                   class="mb-3 block text-base font-medium text-[#07074D]"
                 >
                   Place
                 </label>
                 <input
                   type="text"
-                  name="place"
-                  id="place"
-                  value={values.place}
+                  name="productLocation"
+                  id="productLocation"
+                  value={values.productLocation}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   placeholder="Golpark-04,  sangam path"
                   class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />{" "}
-                {errors.place && touched.place ? (
-                  <p className="text-red-700 p-3">{errors.place}</p>
+                {errors.productLocation && touched.productLocation ? (
+                  <p className="text-red-700 p-3">{errors.productLocation}</p>
                 ) : null}
               </div>
 
               {/* price */}
               <div class="mb-5">
                 <label
-                  for="registrationNumber"
+                  for="productPrice"
                   class="mb-3 block text-base font-medium text-[#07074D]"
                 >
                   Price per day
                 </label>
                 <input
                   type="number"
-                  name="price"
-                  id="price"
-                  value={values.price}
+                  name="productPrice"
+                  id="productPrice"
+                  value={values.productPrice}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   placeholder="1000"
                   class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />{" "}
-                {errors.price && touched.price ? (
-                  <p className="text-red-700 p-3">{errors.price}</p>
+                {errors.productPrice && touched.productPrice ? (
+                  <p className="text-red-700 p-3">{errors.productPrice}</p>
                 ) : null}
               </div>
 
               {/* instruc */}
               <div class="mb-5">
                 <label
-                  for="registrationNumber"
+                  for="productDescription"
                   class="mb-3 block text-base font-medium text-[#07074D]"
                 >
-                  Instructions
+                  Description
                 </label>
                 <input
                   type="text"
-                  name="instruction"
-                  id="instruction"
-                  value={values.instruction}
+                  name="productDescription"
+                  id="productDescription"
+                  value={values.productDescription}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   placeholder="Your instruction before renting"
                   class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />{" "}
-                {errors.instruction && touched.instruction ? (
-                  <p className="text-red-700 p-3">{errors.instruction}</p>
+                {errors.productDescription && touched.productDescription ? (
+                  <p className="text-red-700 p-3">{errors.productDescription}</p>
                 ) : null}
               </div>
 
               {/* guideliness */}
               <div class="mb-5">
                 <label
-                  for="registrationNumber"
+                  for="productGuideline"
                   class="mb-3 block text-base font-medium text-[#07074D]"
                 >
                   Guidelines
                 </label>
                 <input
                   type="text"
-                  name="guideline"
-                  id="guideline"
-                  value={values.guideline}
+                  name="productGuideline"
+                  id="productGuideline"
+                  value={values.productGuideline}
                   onBlur={handleBlur}
                   onChange={handleChange}
                   placeholder="Guideline"
                   class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                 />{" "}
-                {errors.guideline && touched.guideline ? (
-                  <p className="text-red-700 p-3">{errors.guideline}</p>
+                {errors.productGuideline && touched.productGuideline ? (
+                  <p className="text-red-700 p-3">{errors.productGuideline}</p>
                 ) : null}
               </div>
-
-              {/* color */}
-              {/* <div class="mb-5">
-                <label
-                  for="registrationNumber"
-                  class="mb-3 block text-base font-medium text-[#07074D]"
-                >
-                  Color
-                </label>
-                <input
-                  type="text"
-                  name="color"
-                  id="color"
-                  value={values.color}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  placeholder="Color of vechicle"
-                  class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />{" "}
-                {errors.color && touched.color ? (
-                  <p className="text-red-700 p-3">{errors.color}</p>
-                ) : null}
-              </div> */}
 
               {/* What to host */}
               <div class="mb-5">
@@ -312,24 +278,24 @@ const Hostvechicle = () => {
                   {/*registration*/}
                   <div class="mb-5">
                     <label
-                      for="registrationNumber"
+                      for="productRegistrationNumber"
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Registration Number
                     </label>
                     <input
                       type="text"
-                      name="registrationNumber"
-                      id="registrationNumber"
-                      value={values.registrationNumber}
+                      name="productRegistrationNumber"
+                      id="productRegistrationNumber"
+                      value={values.productRegistrationNumber}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       placeholder="Enter registration number of vechicle"
                       class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />{" "}
-                    {errors.registrationNumber && touched.registrationNumber ? (
+                    {errors.productRegistrationNumber && touched.productRegistrationNumber ? (
                       <p className="text-red-700 p-3">
-                        {errors.registrationNumber}
+                        {errors.productRegistrationNumber}
                       </p>
                     ) : null}
                   </div>
@@ -337,88 +303,89 @@ const Hostvechicle = () => {
                   {/* manufacturer */}
                   <div class="mb-5">
                     <label
-                      for="guest"
+                      for="productBrand"
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Manufacturer
                     </label>
                     <select
-                      name="manufacturer"
-                      id="manufacturer"
-                      value={values.manufacturer}
+                      name="productBrand"
+                      id="productBrand"
+                      value={values.productBrand}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     >
-                      <option value="0">BMW</option>
-                      <option value="1">BYD</option>
-                      <option value="2">Ford</option>
-                      <option value="3">Honda</option>
-                      <option value="4">Yamaha</option>
-                      <option value="5">Hyundai</option>
-                      <option value="6">Suzuki</option>
-                      <option value="7">Tata</option>
-                      <option value="8">Tyota</option>
+                      <option value="BMW">BMW</option>
+                      <option value="BYD">BYD</option>
+                      <option value="Ford">Ford</option>
+                      <option value="Honda">Honda</option>
+                      <option value="Yamaha">Yamaha</option>
+                      <option value="Hyundai">Hyundai</option>
+                      <option value="Suzuki">Suzuki</option>
+                      <option value="Tata">Tata</option>
+                      <option value="Tyota">Tyota</option>
                     </select>{" "}
-                    {errors.manufacturer && touched.manufacturer ? (
-                      <p className="text-red-700 p-3">{errors.manufacturer}</p>
+                    {errors.productBrand && touched.productBrand ? (
+                      <p className="text-red-700 p-3">{errors.productBrand}</p>
                     ) : null}
                   </div>
 
-                  {/* seats */}
-                  {/* <div class="mb-5">
+                  {/* category */}
+                          <div class="mb-5">
                     <label
-                      for="seat"
+                      for="productCategory"
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
-                      Number of seats
+                      Category
                     </label>
-                    <input
-                      type="text"
-                      name="seat"
-                      id="seat"
-                      value={values.seat}
+                    <select
+                      name="productCategory"
+                      id="productCategory"
+                      value={values.productCategory}
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder="8"
-                      min="0"
                       class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />{" "}
-                    {errors.seat && touched.seat ? (
-                      <p className="text-red-700 p-3">{errors.seat}</p>
+                    >
+                      <option value="Cars">Cars</option>
+                      <option value="Bike">Bike</option>
+                    </select>{" "}
+                    {errors.productCategory && touched.productCategory ? (
+                      <p className="text-red-700 p-3">{errors.productCategory}</p>
                     ) : null}
-                  </div> */}
+                  </div>
+
 
                   {/* fuel type */}
                   <div class="mb-5">
                     <label
-                      for="guest"
+                      for="productFuelType"
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Fuel Type
                     </label>
                     <select
-                      name="fuel"
-                      id="fuel"
-                      value={values.fuel}
+                      name="productFuelType"
+                      id="productFuelType"
+                      value={values.productFuelType}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     >
-                      <option value="0">Petrol</option>
-                      <option value="1">Disel</option>
-                      <option value="2">Electric</option>
-                      <option value="3">Hybrid</option>
+                      <option value="petrol">Petrol</option>
+                      <option value="disel">Disel</option>
+                      <option value="electric">Electric</option>
+                      <option value="hybrid">Hybrid</option>
                     </select>{" "}
-                    {errors.fuel && touched.fuel ? (
-                      <p className="text-red-700 p-3">{errors.fuel}</p>
+                    {errors.productFuelType && touched.productFuelType ? (
+                      <p className="text-red-700 p-3">{errors.productFuelType}</p>
                     ) : null}
                   </div>
 
                   {/* vechicle image */}
                   <div className="mb-5">
                     <label
-                      htmlFor="vimage"
+                      htmlFor="productImage"
                       className="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Vehicle Image{" "}
@@ -426,22 +393,22 @@ const Hostvechicle = () => {
                     </label>
                     <input
                       type="file"
-                      name="vimage"
-                      id="vimage"
+                      name="productImage"
+                      id="productImage"
                       multiple
                       accept="image/*"
-                      onChange={(event) => handleFileChange(event, "vimage")}
+                      onChange={(event) => handleFileChange(event, "productImage")}
                       className="w-full appearance-none rounded-md border mb-3 border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />
-                    {errors.vimage && touched.vimage ? (
-                      <p className="text-red-700 p-3">{errors.vimage}</p>
+                    {errors.productImage && touched.productImage ? (
+                      <p className="text-red-700 p-3">{errors.productImage}</p>
                     ) : null}
                   </div>
 
                   {/* bluebook img */}
                   <div class="mb-5">
                     <label
-                      for="image"
+                      for="productBluebookImage"
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Bluebook Image{" "}
@@ -449,34 +416,34 @@ const Hostvechicle = () => {
                     </label>
                     <input
                       type="file"
-                      name="bimage"
-                      id="bimage"
+                      name="productBluebookImage"
+                      id="productBluebookImage"
                       accept="image/*"
                       multiple
-                      onChange={(event) => handleFileChange(event, "bimage")}
+                      onChange={(event) => handleFileChange(event, "productBluebookImage")}
                       class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />{" "}
-                    {errors.bimage && touched.bimage ? (
-                      <p className="text-red-700 p-3">{errors.bimage}</p>
+                    {errors.productBluebookImage && touched.productBluebookImage ? (
+                      <p className="text-red-700 p-3">{errors.productBluebookImage}</p>
                     ) : null}
                     <input
                       type="file"
-                      name="bimage"
-                      id="bimage"
+                      name="productBluebookImage"
+                      id="productBluebookImage"
                       accept="image/*"
                       multiple
-                      onChange={(event) => handleFileChange(event, "bimage")}
+                      onChange={(event) => handleFileChange(event, "productBluebookImage")}
                       class="w-full mt-2 appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />{" "}
-                    {errors.bimage && touched.bimage ? (
-                      <p className="text-red-700 p-3">{errors.bimage}</p>
+                    {errors.productBluebookImage && touched.productBluebookImage ? (
+                      <p className="text-red-700 p-3">{errors.productBluebookImage}</p>
                     ) : null}
                   </div>
 
                   {/* insurance image */}
                   <div class="mb-5">
                     <label
-                      for="image"
+                      for="productInsuranceImage"
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Insurance Image{" "}
@@ -484,45 +451,18 @@ const Hostvechicle = () => {
                     </label>
                     <input
                       type="file"
-                      name="inimage"
-                      id="inimage"
+                      name="productInsuranceImage"
+                      id="productInsuranceImage"
                       accept="image/*"
                       multiple
-                      onChange={(event) => handleFileChange(event, "inimage")}
+                      onChange={(event) => handleFileChange(event, "productInsuranceImage")}
                       class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />{" "}
-                    {errors.inimage && touched.inimage ? (
-                      <p className="text-red-700 p-3">{errors.inimage}</p>
+                    {errors.productInsuranceImage && touched.productInsuranceImage ? (
+                      <p className="text-red-700 p-3">{errors.productInsuranceImage}</p>
                     ) : null}
                   </div>
 
-                  {/* insurance valid till*/}
-                  <div class="-mx-3 flex flex-wrap">
-                    <div class="w-full px-3 sm:w-1/2">
-                      <div class="mb-5">
-                        <label
-                          for="date"
-                          class="mb-3 block text-base font-medium text-[#07074D]"
-                        >
-                          Insurance Valid till
-                        </label>
-                        <input
-                          type="date"
-                          name="insurancedate"
-                          id="insurancedate"
-                          value={values.date}
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                        />{" "}
-                        {errors.insurancedate && touched.insurancedate ? (
-                          <p className="text-red-700 p-3">
-                            {errors.insurancedate}
-                          </p>
-                        ) : null}
-                      </div>
-                    </div>
-                  </div>
                 </div>
               )}
 
@@ -533,110 +473,110 @@ const Hostvechicle = () => {
                     {/* model number */}
                     <div class="mb-5">
                       <label
-                        for="modelNumber"
+                        for="productModelNumber"
                         class="mb-3 block text-base font-medium text-[#07074D]"
                       >
                         Model Number
                       </label>
                       <input
                         type="text"
-                        name="modelNumber"
-                        id="modelNumber"
-                        value={values.modelNumber}
+                        name="productModelNumber"
+                        id="productModelNumber"
+                        value={values.productModelNumber}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         placeholder="Enter model number of gadget"
                         class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                       />{" "}
-                      {errors.modelNumber && touched.modelNumber ? (
-                        <p className="text-red-700 p-3">{errors.modelNumber}</p>
+                      {errors.productModelNumber && touched.productModelNumber ? (
+                        <p className="text-red-700 p-3">{errors.productModelNumber}</p>
                       ) : null}
                     </div>
 
                     {/* manufacturer */}
                     <div class="mb-5">
                       <label
-                        for="guest"
+                        for="productBrand"
                         class="mb-3 block text-base font-medium text-[#07074D]"
                       >
                         Manufacturer
                       </label>
                       <select
-                        name="emanufacturer"
-                        id="emanufacturer"
-                        value={values.manufacturer}
+                        name="productBrand"
+                        id="productBrand"
+                        value={values.productBrand}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                       >
-                        <option value="0">Apple</option>
-                        <option value="1">Xiaomi</option>
-                        <option value="2">Samsung</option>
-                        <option value="3">One plus</option>
-                        <option value="4">Huawei</option>
-                        <option value="5">Dell</option>
-                        <option value="6">HP</option>
-                        <option value="7">Lenovo</option>
-                        <option value="8">Asus</option>
-                        <option value="9">Canon</option>
-                        <option value="10">Nikon</option>
-                        <option value="11">Panasonic</option>
-                        <option value="12">L.G.</option>
-                        <option value="13">Sony</option>
+                        <option value="Apple">Apple</option>
+                        <option value="Xiaomi">Xiaomi</option>
+                        <option value="Samsung">Samsung</option>
+                        <option value="Vivo">Vivo</option>
+                        <option value="Dell">Dell</option>
+                        <option value="HP">HP</option>
+                        <option value="Lenovo">Lenovo</option>
+                        <option value="Asus">Asus</option>
+                        <option value="Canon">Canon</option>
+                        <option value="Nikon">Nikon</option>
+                        <option value="L.G.">L.G.</option>
+                        <option value="Sony">Sony</option>
                       </select>{" "}
-                      {errors.manufacturer && touched.manufacturer ? (
+                      {errors.productBrand && touched.productBrand ? (
                         <p className="text-red-700 p-3">
-                          {errors.manufacturer}
+                          {errors.productBrand}
                         </p>
                       ) : null}
                     </div>
+                     {/* category */}
+                     <div class="mb-5">
+                    <label
+                      for="productCategory"
+                      class="mb-3 block text-base font-medium text-[#07074D]"
+                    >
+                      Category
+                    </label>
+                    <select
+                      name="productCategory"
+                      id="productCategory"
+                      value={values.productCategory}
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                    >
+                      <option value="Mobile">Cars</option>
+                      <option value="Laptop">Laptop</option>
+                      <option value="Camera">Camera</option>
+                      <option value="Tv">TV</option>
+                    </select>{" "}
+                    {errors.productCategory && touched.productCategory ? (
+                      <p className="text-red-700 p-3">{errors.productCategory}</p>
+                    ) : null}
+                  </div>
 
                     {/* Gadget image */}
                     <div class="mb-5">
                       <label
-                        for="image"
+                        for="productImage"
                         class="mb-3 block text-base font-medium text-[#07074D]"
                       >
                         Gadget Image <span className="text-gray-600"></span>
                       </label>
                       <input
                         type="file"
-                        name="image"
+                        name="productImage"
                         multiple
-                        id="image"
+                        id="productImage"
                         accept="image/*"
                         onChange={(event) =>
-                          handleFileChange(event, "gadgetimage")
+                          handleFileChange(event, "productImage")
                         }
                         class="w-full appearance-none rounded-md mb-3 border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                       />{" "}
-                      {errors.gadgetimage && touched.gadgetimage ? (
-                        <p className="text-red-700 p-3">{errors.gadgetimage}</p>
+                      {errors.productImage && touched.productImage ? (
+                        <p className="text-red-700 p-3">{errors.productImage}</p>
                       ) : null}
                     </div>
-
-                    {/* BIll img */}
-                    {/* <div class="mb-5">
-                      <label
-                        for="image"
-                        class="mb-3 block text-base font-medium text-[#07074D]"
-                      >
-                        Owning Bill Image
-                      </label>
-                      <input
-                        type="file"
-                        name="image"
-                        id="image"
-                        accept="image/*"
-                        onChange={(event) =>
-                          handleFileChange(event, "billimage")
-                        }
-                        class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                      />{" "}
-                      {errors.billimage && touched.billimage ? (
-                        <p className="text-red-700 p-3">{errors.billimage}</p>
-                      ) : null}
-                    </div> */}
                   </div>
                 )}
 
@@ -645,47 +585,25 @@ const Hostvechicle = () => {
                 <div class="w-full px-3 sm:w-1/2">
                   <div class="mb-5">
                     <label
-                      for="date"
+                      for="availableDate"
                       class="mb-3 block text-base font-medium text-[#07074D]"
                     >
                       Available Date
                     </label>
                     <input
                       type="date"
-                      name="date"
-                      id="date"
+                      name="availableDate"
+                      id="availableDate"
                       value={values.date}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     />{" "}
-                    {errors.date && touched.date ? (
-                      <p className="text-red-700 p-3">{errors.date}</p>
+                    {errors.availableDate && touched.availableDate ? (
+                      <p className="text-red-700 p-3">{errors.availableDate}</p>
                     ) : null}
                   </div>
                 </div>
-                {/* <div class="w-full px-3 sm:w-1/2">
-                  <div class="mb-5">
-                    <label
-                      for="time"
-                      class="mb-3 block text-base font-medium text-[#07074D]"
-                    >
-                      Available Time
-                    </label>
-                    <input
-                      type="time"
-                      name="time"
-                      id="time"
-                      value={values.time}
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />{" "}
-                    {errors.time && touched.time ? (
-                      <p className="text-red-700 p-3">{errors.time}</p>
-                    ) : null}
-                  </div>
-                </div> */}
               </div>
 
               {/* ques */}
@@ -726,7 +644,7 @@ const Hostvechicle = () => {
               </div>
 
               <div>
-                <button class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                <button type = "submit" class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
                   Submit
                 </button>
               </div>
