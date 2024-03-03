@@ -41,12 +41,12 @@ const Card = ({ id, imageSrc, title, rating, price, addToCart }) => {
           <div className="flex items-center mt-2">{renderStars()}</div>
           <p className="text-xs text-gray-400 mt-2 mb-0.5">Rent per day</p>
           <div className="flex items-center justify-between mt-1">
-            <p className="text-gray-700">${price}</p>
+            <p className="text-gray-700">Rs.{price}</p>
             <button
               onClick={() => addToCartt({ id, title, price, imageSrc })}
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
             >
-              Add to cart
+              Rent now
             </button>
           </div>
         </div>
@@ -69,7 +69,7 @@ const ProductContainer = () => {
         "https://i.pinimg.com/564x/25/2e/f1/252ef1d94faa11bd302e7db19f20aee7.jpg",
       title: "Triber Renault",
       rating: 4.5,
-      price: 29.99,
+      price: 1200,
     },
     {
       id: 2,
@@ -77,7 +77,7 @@ const ProductContainer = () => {
         "https://i.pinimg.com/564x/49/35/69/493569c4f195251b516d0db83e8cdb5f.jpg",
       title: "Yamaha YZF-R6",
       rating: 3.8,
-      price: 39.99,
+      price: 1300,
     },
     {
       id: 3,
@@ -85,7 +85,7 @@ const ProductContainer = () => {
         "https://i.pinimg.com/564x/e0/eb/a1/e0eba1488abaa6613641d16c871e1829.jpg",
       title: "Canon PowerShot G7X",
       rating: 4.2,
-      price: 49.99,
+      price: 1800,
     },
     {
       id: 4,
@@ -93,7 +93,7 @@ const ProductContainer = () => {
         "https://i.pinimg.com/564x/3e/87/b7/3e87b75b2a6812b0fff4b4e5cc0ea320.jpg",
       title: "DJI Mavic Mini",
       rating: 4.9,
-      price: 59.99,
+      price: 2000,
     },
   ];
 
