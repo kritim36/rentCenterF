@@ -225,9 +225,12 @@ const change_rating = (rating , cat) => {
     </div>
   </div>
 </section>
+<div>
+<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">Recommended For You</h1>
 <div className="flex flex-wrap">
+
 {recommend_ref.current && recommend_ref.current.map((product)=>{
-    return(
+    return(    
       <div onClick={()=>navigate_to(product?._id)} key={product?._id} className="mx-auto mt-11 w-80 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg">
   <img className="h-48 w-full object-cover object-center" src={product?.productImage} alt="Product Image" />
   <div className="p-4">
@@ -241,9 +244,11 @@ const change_rating = (rating , cat) => {
     </div>
   </div>
 </div>
+
     )
   })
 }
+</div>
 </div>
 
 
