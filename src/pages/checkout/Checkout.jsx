@@ -4,9 +4,11 @@ import {useForm} from 'react-hook-form'
 import { createOrder } from '../../store/checkoutSlice'
 import { STATUSES } from '../../globals/components/misc/statuses'
 import { APIAuthenticated } from '../../http'
+import { useNavigate } from "react-router-dom";
 
 
 const Checkout = () => {
+  const navigate = useNavigate()
     const dispatch = useDispatch()
     const {items : products} = useSelector((state)=>state.cart)
     const {register, handleSubmit,formState} = useForm()
@@ -32,7 +34,9 @@ const Checkout = () => {
     const proceedForKhaltiPayment = ()=>{
       const currentOrder = data[data.length -1]
       if(status === STATUSES.SUCCESS && paymentMethod === "COD" ){
+          // navigate('/')
           return alert("Order placed successfully")
+          
        }  
       if(status === STATUSES.SUCCESS && paymentMethod === "Khalti" ){
           const {totalAmount,_id:orderId} = data[data.length -1]

@@ -1,26 +1,28 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { combinedSchema } from "../schemas";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   productName: "",
-  //productRegistrationNumber: "",
+  productRegistrationNumber: "",
   productBrand: "",
   productCategory: "",
-  //productModelNumber: "",
+  productModelNumber: "",
   city: "",
-  //productFuelType: "",
+  productFuelType: "",
   productLocation: "",
   productPrice: "",
   productDescription: "",
   productGuideline: "", 
   availableDate: "",
   productImage: "",
-  //productBluebookImage: "",
-  //productInsuranceImage: ""
+  productBluebookImage: "",
+  productInsuranceImage: ""
 };
 
 const Hostvechicle = () => {
+  const navigate = useNavigate()
   const [selectedVechicle, setSelectedVechicle] = useState(null);
   const [selectedElectronics, setSelectedElectronics] = useState(null);
 
@@ -50,7 +52,7 @@ const Hostvechicle = () => {
           headers: {
             'Content-Type' : 'application/json',
             Accept : 'application/json',
-            // 'Content-Type': 'multipart/form-data',
+            //'Content-Type': 'multipart/form-data',
             'Authorization' : `${token}`
           },
           body: JSON.stringify(values)
@@ -61,6 +63,7 @@ const Hostvechicle = () => {
         }
   
         console.log('Form data submitted successfully');
+        navigate('/')
         action.resetForm();
         console.log(response)
       } catch (error) {
@@ -544,7 +547,7 @@ const Hostvechicle = () => {
                       onChange={handleChange}
                       class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     >
-                      <option value="Mobile">Cars</option>
+                      <option value="Mobile">Mobile</option>
                       <option value="Laptop">Laptop</option>
                       <option value="Camera">Camera</option>
                       <option value="Tv">TV</option>

@@ -28,7 +28,7 @@ const Register = () => {
     e.preventDefault()
     dispatch(registerUser(userData))
     if(status == STATUSES.SUCCESS){
-        return navigate("/login")
+         navigate("/login")
     }
     if(status == STATUSES.ERROR){
         console.log("error")

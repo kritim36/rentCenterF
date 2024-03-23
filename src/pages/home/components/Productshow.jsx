@@ -1,6 +1,7 @@
 import React from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import { add, remove } from "../../../store/cartSlice";
 
 const Card = ({ id, imageSrc, title, rating, price, addToCart }) => {
@@ -31,7 +32,7 @@ const Card = ({ id, imageSrc, title, rating, price, addToCart }) => {
   const addToCartt = ({ id, title, price }) => {
     dispatch(add({id,title, price, imageSrc }))
   }
-
+  const navigate = useNavigate()
   return (
     <div className="mb-4 pb-4 flex-shrink-0" style={{ width: "250px"}}>
       <div className="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
@@ -43,10 +44,11 @@ const Card = ({ id, imageSrc, title, rating, price, addToCart }) => {
           <div className="flex items-center justify-between mt-1">
             <p className="text-gray-700">Rs.{price}</p>
             <button
-              onClick={() => addToCartt({ id, title, price, imageSrc })}
+              onClick={()=>navigate('/product')}
+              //onClick={() => addToCartt({ id, title, price, imageSrc })}
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
             >
-              Rent now
+              Buy Now
             </button>
           </div>
         </div>

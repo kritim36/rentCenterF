@@ -49,9 +49,11 @@ export function registerUser(data){
         dispatch(setStatus(STATUSES.LOADING))
         try {
             const response = await API.post("/auth/register",data)
-            dispatch(setStatus(STATUSES.SUCCESS))
+            window.location.href = "http://localhost:5173/login"
+                dispatch(setStatus(STATUSES.SUCCESS))
+            
         } catch (error) {
-            alert("Something went wrong")
+            alert("Email is already registered")
             dispatch(setStatus(STATUSES.ERROR))
         }
     }
@@ -71,7 +73,7 @@ export function loginUser(data){
             }
             
         } catch (error) {
-            alert("Something went wrong")
+            alert("Email or password wrong")
             dispatch(setStatus(STATUSES.ERROR))
         }
     }
