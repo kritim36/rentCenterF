@@ -105,10 +105,6 @@ export function forgotPassword(data){
             dispatch(setEmail(response.data.data))
          
             dispatch(setStatus(STATUSES.SUCCESS))
-        
-            // alert("Something went wrong")
-            // console.log(error)
-            // dispatch(setStatus(STATUSES.ERROR))
        
     }
 }
